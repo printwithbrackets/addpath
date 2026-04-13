@@ -8,16 +8,7 @@ Ever downloaded a program and it just... doesn't work in the terminal? `addpath`
 
 ## Installation
 
-### Manual
-
-```bash
-git clone https://github.com/printwithbrackets/addpath.git
-cd addpath
-chmod +x install.sh
-./install.sh
-```
-
-### AUR (coming soon)
+### AUR
 
 ```bash
 yay -S addpath
@@ -40,6 +31,8 @@ That's it. It will:
 ### Flags
 
 ```
+--apply          Automatically pastes in
+the PATH into .rc
 --verbose        Show all found executables and their PATH status
 --dir <path>     Also scan a custom directory
 --scan           Run scan only (default behavior)
