@@ -31,8 +31,7 @@ That's it. It will:
 ### Flags
 
 ```
---apply          Automatically pastes in
-the PATH into .rc
+--apply          Automatically pastes the PATH into the .rc
 --verbose        Show all found executables and their PATH status
 --dir <path>     Also scan a custom directory
 --scan           Run scan only (default behavior)
