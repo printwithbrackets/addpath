@@ -1,0 +1,23 @@
+.TH ADDPATH 1 "2026" "addpath" "User Commands"
+.SH NAME
+addpath \- find executables not in PATH
+
+.SH SYNOPSIS
+addpath [--apply] [--dir PATH]
+
+.SH DESCRIPTION
+Scans common directories for executables not in PATH and suggests fixes.
+
+.SH OPTIONS
+.TP
+--apply
+Automatically apply changes to shell config
+
+.TP
+--dir PATH
+Scan additional directory
+
+.SH EXAMPLES
+addpath
+addpath --apply
+addpath --dir ~/apps
