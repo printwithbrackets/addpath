@@ -1,10 +1,13 @@
 # addpath
 
-A lightweight CLI tool for Linux that scans your system for executables not in your `$PATH` and automatically fixes it.
+A TUI PATH manager for Linux. Scan your system for executables not in `$PATH`, add missing directories interactively, and remove stale entries — all from a clean terminal interface.
 
 ## What it does
 
-Ever downloaded a program and it just... doesn't work in the terminal? `addpath` hunts down executables across your system, detects which ones are missing from your `$PATH`, writes the fix to your shell config, and updates your current session instantly.
+- Shows all current `$PATH` entries with their status (persistent, session-only, or missing on disk)
+- Auto-scans common locations for executables and offers to add missing directories
+- Add or remove PATH entries interactively
+- Writes changes to `~/.bashrc` and `~/.zshrc` automatically
 
 ## Installation
 
@@ -14,47 +17,60 @@ Ever downloaded a program and it just... doesn't work in the terminal? `addpath`
 yay -S addpath
 ```
 
+### Manual
+
+```bash
+pip install textual
+install -Dm755 addpath.py ~/.local/bin/addpath
+```
+
 ## Usage
 
 ```bash
 addpath
 ```
 
-That's it. It will:
+### Key bindings
 
-1. Scan common directories for executables
-2. Detect which ones are not in your PATH
-3. Write the missing export lines to ~/.bashrc and ~/.zshrc
-4. Apply the changes to your current session
-5. Tell you to run exec $SHELL to fully reload
+| Key | Action |
+|-----|--------|
+| `a` | Add a PATH entry manually |
+| `d` | Remove the selected entry |
+| `r` | Refresh the table |
+| `q` | Quit |
 
-### Flags
+### Buttons
 
-```
---apply          Automatically pastes the PATH into the .rc
---verbose        Show all found executables and their PATH status
---dir <path>     Also scan a custom directory
---scan           Run scan only (default behavior)
-```
+- **Auto Add PATHs** — scans common directories for executables not in PATH and lets you add them all at once
+- **Add PATH** — opens a prompt to type a directory path manually
+- **Remove Selected** — removes the highlighted entry from your session and shell config
 
-## Scanned Directories
+## Path status indicators
 
-- ~/.local/bin
-- ~/bin
-- /opt (recursive, up to 3 levels deep)
-- ~/Downloads
-- ~/Applications
-- ~/.cargo/bin
-- ~/.go/bin
-- /usr/local/bin
-- Flatpak exports
-- AppImages in ~ and ~/Downloads
+| Color | Meaning |
+|-------|---------|
+| Green ● Persistent | Found in `~/.bashrc` or `~/.zshrc` — survives reboots |
+| Yellow ● Session | In current `$PATH` but not in any shell config |
+| Red ● Missing | In `$PATH` but the directory doesn't exist on disk |
+
+## Scanned Directories (Auto Add)
+
+- `~/.local/bin`
+- `~/bin`
+- `~/.cargo/bin`
+- `~/go/bin` / `~/.go/bin`
+- `~/Downloads`
+- `~/Applications`
+- `/opt` (recursive, up to 3 levels)
+- `/usr/local/bin`
+- `/usr/local/go/bin`
 
 ## Requirements
 
-- Python 3
+- Python 3.10+
+- [textual](https://github.com/Textualize/textual) (`pip install textual` or `python-textual` on AUR)
 - Linux
 
 ## License
 
-MIT - see [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE)
